@@ -36,7 +36,8 @@ def parse_log_line(line):
     timestamp_str = parts[0] + " " + parts[1]
     log_level = parts[2]
     service = parts[3]
-    message = parts[4]
+    # edit : right now I have not thought of doing anything with the userID so I'll include it with message
+    message = " ".join(parts[4:])
 
     timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
 
