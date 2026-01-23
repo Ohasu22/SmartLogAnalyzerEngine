@@ -39,7 +39,12 @@ def parse_log_line(line):
     # edit : right now I have not thought of doing anything with the userID so I'll include it with message
     message = " ".join(parts[4:])
 
-    timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
+    # edit: found a bug so rectifying that, if something other than my log standard comes in it goes haywaire
+    # wrapping this in try/except block
+    try:
+        timestamp = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return None
 
     return (timestamp, log_level, service, message)
 
