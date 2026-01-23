@@ -56,7 +56,8 @@ def main():
         for timestamps, errorCount in spikes:
             print(f"Spike at {timestamps} -> {count} errors")
 
-
+#-----------------------------------------------XOXO--------------------------------------
+#edit(23/01/25): scrolled up and down so many times even I got confused where to look so adding this line and XOXO
 #starting the generator main file
 # all variable up till now:
 #generator: generate_log_stream
@@ -67,17 +68,17 @@ from anomaly.statistical import RollingStats
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-def stream_main():
+def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, threshold = 2):
     service_count = defaultdict(int)
     level_count = defaultdict(int)
 
-    stats = RollingStats(window_size = 5, threshold = 2)
+    stats = RollingStats(window_size = rolling_window, threshold = threshold)
 
     error_count = 0
     window_start = None
-    WINDOW_SECONDS = 10
+    WINDOW_SECONDS = window_seconds
 
-    for line in generate_log_stream(10000):
+    for line in generate_log_stream(num_logs):
         parsed = parse_log_line(line)
         if not parsed:
             continue
@@ -99,18 +100,43 @@ def stream_main():
         else:
             stats.update(error_count)
 
-            if stats.is_anomaly(error_count):
-                print(f"Anomaly detected boss!: {error_count} errors in the last window")
+            #changing my printing window to look like google's
+            # I am thinking of showing everything like error(already doing), std, mean, anomaly
+            # error mean std amomaly(uwu)
+            #edit(24/01/25): I guess on second thought I'll add this error= | mean= | std= | isAnomaly=  this one looks much better
+
+            #dont need this now
+            # if stats.is_anomaly(error_count):
+            #     print(f"Anomaly detected boss!: {error_count} errors in the last window")
+            # edit(24/05/26): mental note, find the difference between strf and strp time
+            print(
+                f"Window [{window_start.strftime('%H:%M:%S')} - {timestamp.strftime('%H:%M:%S')} | "
+                f"errors = {error_count} | "
+                f"mean = {stats.mean():.2f} | "
+                f"std = {stats.std():.2f} | "
+                f"isAnomaly = {stats.is_anomaly(error_count)}"
+            )
 
             # for some reason I cant declare error_count as a local variable so here is my solution
             error_count = 0
             window_start = timestamp
 
+    # edit(24/01/25): copy pasting the frequency outputs here from main
+    print("\n --------------Frequency Analysis-------------- ")
+
+    print("\n Logs in Service: ")
+    for service, count in service_count.items():
+        print(f"{service}: {count}")
+
+    print("\n Logs in Level: ")
+    for level, count in level_count.items():
+        print(f"{level}: {count}")
+
 
 
 if __name__ == "__main__":
     #main()
-    stream_main()
+    stream_main(num_logs=50, window_seconds=10, rolling_window=5, threshold=2)
     # for line in generate_log_stream(12):
     #     parsed = parse_log_line(line)
     #     print(parsed)
