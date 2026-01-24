@@ -12,6 +12,7 @@ from analysis.frequency import count_frequencies
 from analysis.spike_detector import detect_error_spikes
 #edit(25/01/26): adding pattern matcher for testing
 from analysis.pattern_matcher import patternFinder
+from config import NUM_LOGS,WINDOW_SECONDS,ROLLING_WINDOW,THRESHOLD,PATTERN_TO_DETECT,MAX_TIME_GAP
 
 def load_logs(file_path):
     parsed_logs = []
@@ -78,17 +79,17 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
 
     error_count = 0
     window_start = None
-    WINDOW_SECONDS = window_seconds
 
     #edit: initialising my pattern finder
-    pattern = (
-        ("AuthService", "WARN"),
-        ("AuthService", "ERROR"),
-        ("Shaktiiii", "ERROR"),
-    )
+    #edit2: dont need this now
+    # pattern = (
+    #     ("AuthService", "WARN"),
+    #     ("AuthService", "ERROR"),
+    #     ("Shaktiiii", "ERROR"),
+    # )
     pattern_matcher = patternFinder(
-        pattern = pattern,
-        max_time_gap= 5
+        pattern = PATTERN_TO_DETECT,
+        max_time_gap= MAX_TIME_GAP
     )
 
     for line in generate_log_stream(num_logs):
@@ -106,7 +107,7 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
         if matched:
             print(
                 f"[PATTERN DETECTED BEEP BOOP] "
-                f"{pattern} | "
+                f"{PATTERN_TO_DETECT} | "
                 f"from {pattern_matcher.timestamps[0].strftime('%H:%M:%S')} "
                 f"to {pattern_matcher.timestamps[-1].strftime('%H:%M:%S')}"
             )
@@ -159,7 +160,7 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
 
 if __name__ == "__main__":
     #main()
-    stream_main(num_logs=10000, window_seconds=10, rolling_window=5, threshold=2)
+    stream_main(num_logs=NUM_LOGS, window_seconds=WINDOW_SECONDS, rolling_window=ROLLING_WINDOW, threshold=THRESHOLD)
     # for line in generate_log_stream(12):
     #     parsed = parse_log_line(line)
     #     print(parsed)
