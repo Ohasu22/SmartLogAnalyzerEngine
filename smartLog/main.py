@@ -10,6 +10,8 @@
 from parser.log_parser import parse_log_line
 from analysis.frequency import count_frequencies
 from analysis.spike_detector import detect_error_spikes
+#edit(25/01/26): adding pattern matcher for testing
+from analysis.pattern_matcher import patternFinder
 
 def load_logs(file_path):
     parsed_logs = []
@@ -78,6 +80,17 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
     window_start = None
     WINDOW_SECONDS = window_seconds
 
+    #edit: initialising my pattern finder
+    pattern = (
+        ("AuthService", "WARN"),
+        ("AuthService", "ERROR"),
+        ("Shaktiiii", "ERROR"),
+    )
+    pattern_matcher = patternFinder(
+        pattern = pattern,
+        max_time_gap= 5
+    )
+
     for line in generate_log_stream(num_logs):
         parsed = parse_log_line(line)
         if not parsed:
@@ -87,6 +100,16 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
         #edit: I AM AN IDOITTTTTTTT!!!!!
         #timestamp = datetime.strptime(ts, "%Y-%m-%d %H:%M:%S")
         timestamp = ts
+
+        matched = pattern_matcher.analysis(service, level, timestamp)
+
+        if matched:
+            print(
+                f"[PATTERN DETECTED BEEP BOOP] "
+                f"{pattern} | "
+                f"from {pattern_matcher.timestamps[0].strftime('%H:%M:%S')} "
+                f"to {pattern_matcher.timestamps[-1].strftime('%H:%M:%S')}"
+            )
 
         service_count[service] += 1
         level_count[level] += 1
@@ -136,7 +159,7 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
 
 if __name__ == "__main__":
     #main()
-    stream_main(num_logs=50, window_seconds=10, rolling_window=5, threshold=2)
+    stream_main(num_logs=10000, window_seconds=10, rolling_window=5, threshold=2)
     # for line in generate_log_stream(12):
     #     parsed = parse_log_line(line)
     #     print(parsed)
