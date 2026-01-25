@@ -78,6 +78,8 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
     stats = RollingStats(window_size = rolling_window, threshold = threshold)
 
     error_count = 0
+    #edit(26/01/26): adding final final metrics so I dont have to search through the whole logs to find that one pattern
+    total_logs = 0
     window_start = None
 
     #edit: initialising my pattern finder
@@ -96,6 +98,8 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
         parsed = parse_log_line(line)
         if not parsed:
             continue
+
+        total_logs += 1
 
         ts, level, service, message = parsed
         #edit: I AM AN IDOITTTTTTTT!!!!!
@@ -118,7 +122,7 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
         if window_start is None:
             window_start = timestamp
 
-        if timestamp - window_start <= timedelta(seconds = WINDOW_SECONDS):
+        if timestamp - window_start <= timedelta(seconds = window_seconds):
             if level == "ERROR":
                 error_count += 1
         else:
@@ -155,6 +159,18 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
     print("\n Logs in Level: ")
     for level, count in level_count.items():
         print(f"{level}: {count}")
+
+    print("---------------------Final-Final SUMMARY(promise its the last one)------------------------------")
+    print(f"Total LOGS processed: {total_logs}")#its the count of the logs that are processed
+    print(f"Total error widows: {len(stats.values)}")
+
+    print("\nTop services by errors are(Drumroll please!): ")
+    for servs, count in sorted(service_count.items(), key= lambda x: x[1], reverse = True):
+        print(f"{servs}: {count}")
+
+    print("\nDetected patterns: ")
+    for pattern, count in pattern_matcher.pattern_count.items():
+        print(f"{pattern}: {count}")
 
 
 

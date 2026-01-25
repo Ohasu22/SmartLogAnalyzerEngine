@@ -3,6 +3,9 @@
 # edit: lets just print the pattern instead of counting it(my logic's not working for counting)
 
 from collections import deque, defaultdict
+#edit: adding my config file setup
+#edit2 : oops can import config coz python say no for some traceback issue
+# mental note: learn about traceback import
 
 # class patternFinder:
 #     def __init__(self, pattern):
