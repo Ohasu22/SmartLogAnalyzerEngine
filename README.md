@@ -8,29 +8,6 @@ DISTRIBUTE LOG ANALYZER ENGINE
 
 Hello! I am Ojas and I am currently a college student in Electronics and Telecommunications Engineering with a strong passion in System-based Software Development. This project really took me around 1-2 months from its idea conception to its refinement. I have tried to make this as modular as possible so anyone could easily integrate my project into theirs for their log insights.
 I am still working on the project and improving it ever so slightly, whenever I get the chance so I would love to have any second opinions on improving the project to truly make it a production level project! 
-Contents
-Overview	3
-Goals/ Objectives	3
-Features	3
-System Architecture	3
-Phase 1 – Log Parsing	7
-My Approach:	7
-Design	9
-Phase 2 – Redesigning log parsing using Streaming via Generators	10
-Phase 3 – Frequency Analysis	11
-Phase 4 – Error Spike Detection	11
-Phase 4: Part 2- MEAN and STD Calculation	12
-Phase 5- Temporal Pattern Detection	14
-Configuration-Driven Design	15
-Final metrics and Summary Output	15
-How to integrate My Project into Yours	16
-Engineering Challenges and Solutions	17
-Challenge: Memory explosion	17
-Challenge: False Positives for anomaly alerts	17
-Challenge: Temporal correlation	17
-Challenge: Maintainability and Scalability	17
-Future Improvements	18
-Closing Note	18
 
  
 Overview
@@ -55,19 +32,7 @@ If my timestamp yields an ERROR in a timeframe of window_seconds, then the syste
 Lastly all this combinates into the final frequency and log analysis of the log streams a the last.
  
  
-System Pipeline
 
- 
-System Architecture
-
-
- 
-Anomaly detected – 1M test Run
-
- 
-Frequency analysis-1M test Run
-
- 
 Phase 1 – Log Parsing
 My Approach:
 Let’s assume the logs are stored in a file called sample.log, so whenever the log_parser.py is called, the code read logs line by line from that static file.
