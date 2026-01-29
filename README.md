@@ -32,7 +32,7 @@ This implementation intentionally avoids heavy frameworks to demonstrate core ba
 
 ## High-Level Architecture
 
-![System Architecture](assets/system_architecture.png)
+[![System Architecture](assets/system_architecture.png)](https://github.com/Ohasu22/SmartLogAnalyzerEngine/blob/main/smartLog/assets/system_architecture.png)
 
 Pipeline overview:
 
@@ -41,7 +41,7 @@ Pipeline overview:
 
 ## System Pipeline (Detailed)
 
-![System Pipeline](assets/system_pipeline.png)
+[![System Pipeline](assets/system_pipeline.png)](https://github.com/Ohasu22/SmartLogAnalyzerEngine/blob/main/smartLog/assets/log_pipeline.png)
 
 Each stage operates independently and communicates using immutable data structures, allowing easy extension or replacement of components.
 
@@ -65,7 +65,6 @@ Each log entry is normalized into an immutable tuple:
 
 Initial file-based parsing was replaced due to scalability limitations.
 
-![Generator Streaming](assets/generator_streaming.png)
 
 **Benefits:**
 - Space Complexity: O(1)
@@ -77,7 +76,6 @@ Initial file-based parsing was replaced due to scalability limitations.
 
 ### 2. Frequency Analysis
 
-![Frequency Analysis](assets/frequency_analysis.png)
 
 - Uses `defaultdict`
 - Tracks service-level and severity-level distributions
@@ -90,7 +88,6 @@ Initial file-based parsing was replaced due to scalability limitations.
 
 ### 3. Error Spike Detection
 
-![Error Spike Detection](assets/error_spike_detection.png)
 
 Detects bursts of errors within a sliding time window using `deque`.
 
@@ -102,7 +99,7 @@ Detects bursts of errors within a sliding time window using `deque`.
 
 ### 4. Rolling Statistical Anomaly Detection
 
-![Rolling Statistics](assets/rolling_statistics.png)
+
 
 Implements rolling mean and standard deviation without recomputation.
 
@@ -114,7 +111,6 @@ Implements rolling mean and standard deviation without recomputation.
 
 ### 5. Temporal Pattern Detection
 
-![Pattern Matching](assets/pattern_matching.png)
 
 Detects ordered event sequences such as:
 
@@ -128,7 +124,7 @@ Constraints:
 
 ## Configuration-Driven Design
 
-![Config Driven Design](assets/config_design.png)
+
 
 All parameters (thresholds, windows, patterns) are defined in `config.py`.
 
@@ -142,7 +138,7 @@ Benefits:
 
 ## Output Metrics
 
-![Final Metrics](assets/final_metrics.png)
+
 
 At the end of execution, the engine reports:
 - Total logs processed
