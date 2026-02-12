@@ -14,6 +14,74 @@
 - Designed with modular architecture and configuration-driven parameters  
 
 ---
+Live Deployment
+
+The engine is publicly deployed and accessible via Render.
+
+Note
+The service runs on Render’s free tier and may take ~30–60 seconds to wake up after inactivity (cold start behavior).
+
+Base URL:
+
+https://smartloganalyzerengine.onrender.com
+
+##Health Check
+
+Endpoint:
+GET /
+
+Example:
+https://smartloganalyzerengine.onrender.com/
+
+Returns:
+<p align="center">
+  <img src="smartLog/assets/status.png" width="700"/>
+</p>
+
+##Run Log Analysis
+
+Endpoint:
+GET /run
+
+Example:
+
+https://smartloganalyzerengine.onrender.com/run
+
+To determine the number of logs to generate, define the variable num_logs
+
+Example:
+
+https://smartloganalyzerengine.onrender.com/run?num_logs=1000
+
+Returns structured JSON including:
+Total logs processed
+Total error windows analyzed
+Service-level frequency distribution
+Severity-level distribution
+Detected patterns
+
+Example response:
+<p align="center">
+  <img src="smartLog/assets/response.png" width="700"/>
+</p>
+
+Benchmark response:
+<p align="center">
+  <img src="smartLog/assets/1Mresponse.png" width="700"/>
+</p>
+
+It takes a little time to run so be patient!
+
+##Interactive API Documentation (Swagger UI)
+
+Explore and test endpoints directly in your browser:
+
+https://smartloganalyzerengine.onrender.com/docs
+
+Features:
+Execute endpoints interactively
+Inspect request/response schemas
+Validate output structures
 
 ## Overview
 
