@@ -1,6 +1,6 @@
 # Distributed Log Analyzer Engine
 
-**Author:** Ojas Gharde  
+**Author:** Ojas Gharde 
 **Domain:** Backend Systems · Distributed Systems · Stream Processing · Observability  
 **Tech:** Python, Generators, Deques, Hash Maps, Statistical Analysis
 
@@ -32,16 +32,21 @@ This implementation intentionally avoids heavy frameworks to demonstrate core ba
 
 ## High-Level Architecture
 
-[![System Architecture](assets/system_architecture.png)](https://github.com/Ohasu22/SmartLogAnalyzerEngine/blob/main/smartLog/assets/system_architecture.png)
+<p align="center">
+  <img src="smartLog/assets/system_architecture.png" width="700"/>
+</p>
 
 Pipeline overview:
 
 
 ---
 
+
 ## System Pipeline (Detailed)
 
-[![System Pipeline](assets/system_pipeline.png)](https://github.com/Ohasu22/SmartLogAnalyzerEngine/blob/main/smartLog/assets/log_pipeline.png)
+<p align="center">
+  <img src="smartLog/assets/log_pipeline.png" width="700"/>
+</p>
 
 Each stage operates independently and communicates using immutable data structures, allowing easy extension or replacement of components.
 
