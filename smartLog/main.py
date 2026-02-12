@@ -137,13 +137,14 @@ def stream_main(num_logs = 1000, window_seconds = 10, rolling_window = 5, thresh
             # if stats.is_anomaly(error_count):
             #     print(f"Anomaly detected boss!: {error_count} errors in the last window")
             # edit(24/05/26): mental note, find the difference between strf and strp time
-            print(
-                f"Window [{window_start.strftime('%H:%M:%S')} - {timestamp.strftime('%H:%M:%S')} | "
-                f"errors = {error_count} | "
-                f"mean = {stats.mean():.2f} | "
-                f"std = {stats.std():.2f} | "
-                f"isAnomaly = {stats.is_anomaly(error_count)}"
-            )
+            #edit(13/02/26): dont need this now, I can directly generate the output in the docker
+            # print(
+            #     f"Window [{window_start.strftime('%H:%M:%S')} - {timestamp.strftime('%H:%M:%S')} | "
+            #     f"errors = {error_count} | "
+            #     f"mean = {stats.mean():.2f} | "
+            #     f"std = {stats.std():.2f} | "
+            #     f"isAnomaly = {stats.is_anomaly(error_count)}"
+            # )
 
             # for some reason I cant declare error_count as a local variable so here is my solution
             error_count = 0
