@@ -6,7 +6,7 @@
 
 ---
 
-## TL;DR (For Recruiters)
+## TL;DR
 
 - Built a scalable streaming log analysis engine inspired by production observability systems  
 - Processes millions of logs in O(n) time and O(1) space using generator-based pipelines  
@@ -25,7 +25,7 @@ Base URL:
 
 https://smartloganalyzerengine.onrender.com
 
-##Health Check
+## Health Check
 
 Endpoint:
 GET /
@@ -72,7 +72,7 @@ Benchmark response:
 
 It takes a little time to run so be patient!
 
-##Interactive API Documentation (Swagger UI)
+## Interactive API Documentation
 
 Explore and test endpoints directly in your browser:
 
